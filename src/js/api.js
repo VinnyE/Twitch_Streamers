@@ -11,7 +11,7 @@ twitchFCC.fetchApi = {
 
   checkTotalStreams (totalUsers) {
     if (this.streams.length === totalUsers) {
-      PubSub.publish('STREAM_DATA', this.streams)
+      PubSub.publish('GET_API_DATA', this.streams)
     }
   },
 
@@ -26,7 +26,7 @@ twitchFCC.fetchApi = {
             online: data.stream != null,
             stream: data.stream || 'OFFLINE'
           }
-          
+
           this.streams.push(streamInfo)
           this.checkTotalStreams(ids.length)
         },

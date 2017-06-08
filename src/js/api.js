@@ -4,14 +4,14 @@ var twitchFCC = window.twitchFCC = window.twitchFCC || {}
 
 twitchFCC.fetchApi = {
   init () {
-    PubSub.subscribe('GET_DATA', twitchFCC.fetchApi.fetchStreamData.bind(this))
+    PubSub.subscribe('GET_API_DATA', twitchFCC.fetchApi.fetchStreamData.bind(this))
   },
 
   streams: [],
 
   checkTotalStreams (totalUsers) {
     if (this.streams.length === totalUsers) {
-      PubSub.publish('GET_API_DATA', this.streams)
+      PubSub.publish('API_DATA_RECEIVED', this.streams)
     }
   },
 

@@ -4,7 +4,7 @@ var twitchFCC = window.twitchFCC = window.twitchFCC || {}
 
 twitchFCC.streamListing = {
   init () {
-    PubSub.subscribe('FORMAT_DATA', this.formatData.bind(this))
+    PubSub.subscribe('GET_FORMATTED_DATA', this.formatData.bind(this))
     PubSub.subscribe('APPEND_DATA', this.appendHTML.bind(this))
   },
 
@@ -20,7 +20,7 @@ twitchFCC.streamListing = {
       return html
     })
 
-    PubSub.publish('GET_FORMATTED_DATA', listItems)
+    PubSub.publish('FORMATTED_DATA_RECEIVED', listItems)
   },
 
   appendHTML (event, data) {

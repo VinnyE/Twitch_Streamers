@@ -6,14 +6,14 @@ window.addEventListener('load', e => {
   twitchFCC.streamListing.init()
   twitchFCC.fetchApi.init()
 
-  PubSub.subscribe('GET_API_DATA', apiDataReceived)
-  PubSub.subscribe('GET_FORMATTED_DATA', formattedDataReceived)
+  PubSub.subscribe('API_DATA_RECEIVED', apiDataReceived)
+  PubSub.subscribe('FORMATTED_DATA_RECEIVED', formattedDataReceived)
   
-  PubSub.publish('GET_DATA', ['freecodecamp', 'ESL_SC2', 'OgamingSC2'])
+  PubSub.publish('GET_API_DATA', ['freecodecamp', 'ESL_SC2', 'OgamingSC2'])
 })
 
 const apiDataReceived = (event, streamData) => {
-  PubSub.publish('FORMAT_DATA', streamData)
+  PubSub.publish('GET_FORMATTED_DATA', streamData)
 }
 
 const formattedDataReceived = (event, formattedData) => {

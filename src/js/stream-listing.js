@@ -12,9 +12,9 @@ twitchFCC.streamListing = {
     let listItems = streamsArr.map(streamInfo => {
       let html 
       if (streamInfo.online) {
-        html =  `<li class="streams_container--item"><p>Name: ${streamInfo.name}</p><p>Status: ONLINE </p><p>Playing: ${streamInfo.stream.game}</p></li>`
+        html =  `<li class="streams_container--item"><p><span class="item-title">Name</span>: <a href=${streamInfo.stream.channel.url} target="_blank">${streamInfo.name}</a></p><p><span class="item-title">Status</span>: ONLINE </p><p><span class="item-title">Playing</span>: ${streamInfo.stream.game } - ${streamInfo.stream.channel.status}</p></li>`
       } else {
-        html = `<li class="streams_container--item"><p>Name: ${streamInfo.name}</p><p>Status: OFFLINE </p></li>`
+        html = `<li class="streams_container--item"><p><span class="item-title">Name</span>: ${streamInfo.name}</p><p><span class="item-title">Status</span>: OFFLINE </p></li>`
       }
 
       return html

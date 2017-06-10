@@ -2,7 +2,7 @@
 
 var twitchFCC = window.twitchFCC = window.twitchFCC || {}
 
-window.addEventListener('load', e => {
+window.addEventListener('DOMContentLoaded', e => {
   twitchFCC.streamListing.init()
   twitchFCC.fetchApi.init()
   twitchFCC.filters.init()
@@ -11,7 +11,6 @@ window.addEventListener('load', e => {
   PubSub.subscribe('FORMATTED_DATA_RECEIVED', formattedDataReceived)
   
   PubSub.publish('GET_API_DATA', ['freecodecamp', 'ESL_SC2', 'OgamingSC2', 'storbeck', 'noobs2ninjas', 'RobotCaleb'])
-
 })
 
 const apiDataReceived = (event, streamData) => {

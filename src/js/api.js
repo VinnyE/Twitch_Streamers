@@ -16,9 +16,8 @@ twitchFCC.fetchApi = {
   },
 
   fetchStreamData (msg, ids) {
-    let streams = []
     ids.forEach((id) => {
-      JSONP({ // bypassing cors errors with JSONP. 
+      JSONP({ // bypassing cors errors with JSONP.
         url: `https://wind-bow.gomix.me/twitch-api/streams/${id}`,
         success: data => {
           let streamInfo = {

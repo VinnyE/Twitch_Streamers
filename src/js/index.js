@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', e => {
 
   PubSub.subscribe('API_DATA_RECEIVED', apiDataReceived)
   PubSub.subscribe('FORMATTED_DATA_RECEIVED', formattedDataReceived)
-  
+
   PubSub.publish('GET_API_DATA', ['freecodecamp', 'ESL_SC2', 'OgamingSC2', 'storbeck', 'noobs2ninjas', 'RobotCaleb'])
 })
 
@@ -19,7 +19,7 @@ const apiDataReceived = (event, streamData) => {
 
 const formattedDataReceived = (event, formattedData) => {
   const dataObj = {
-    htmlArr: formattedData, 
+    htmlArr: formattedData,
     target: '.streams_container'
   }
 

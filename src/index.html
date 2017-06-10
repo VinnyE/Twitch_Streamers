@@ -15,9 +15,9 @@
   <div class="container">
     <header class="header"><h1>Twitch Streamers</h1></header>
     <div class="filters">
-      <span class="filters--all active">All</span>
-      <span class="filters--online">Online</span>
-      <span class="filters--offline">Offline</span>
+      <span id="filters--all" class="active">All</span>
+      <span id="filters--online">Online</span>
+      <span id="filters--offline">Offline</span>
     </div>
     <ul class="streams_container"></ul>
   </div>
@@ -30,6 +30,7 @@
 <!--build:js js/main.min.js -->
   <script src="js/api.js"></script>
   <script src="js/stream-listing.js"></script>
+  <script src="js/filters.js"></script>
   <script src="js/index.js"></script>
 <!-- endbuild -->
 </body>

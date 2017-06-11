@@ -3,6 +3,8 @@ var sass = require("gulp-sass");
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
+var usemin = require('gulp-usemin');
+var htmlmin = require('gulp-htmlmin');
 var cssnano = require('gulp-cssnano');
 var useref = require('gulp-useref');
 var eslint = require('gulp-eslint');
@@ -10,7 +12,6 @@ var sourcemaps = require('gulp-sourcemaps');
 var babel = require('gulp-babel');
 var runSequence = require('run-sequence');
 var del = require('del');
-var browserify = require('gulp-webpack');
 var lazypipe = require('lazypipe');
 var browserSync = require("browser-sync").create();
 
@@ -20,7 +21,7 @@ var paths = {
   scripts: './src/js/*.js',
   css: './src/css/*.css',
   scss: './src/scss/*.scss',
-  dist: './dist/',
+  dist: './dist',
   distjs: './dist/js',
   distcss: './dist/css',
 };
@@ -35,11 +36,9 @@ var supported = [
 ];
 
 var jstasks = lazypipe()
-  .pipe(browserify)
   .pipe(sourcemaps.init)
   .pipe(eslint)
   .pipe(eslint.format) 
-  .pipe(eslint.failAfterError)
   .pipe(babel)
   .pipe(uglify)
   .pipe(sourcemaps.write);
@@ -48,7 +47,6 @@ gulp.task('lint', function() {
   return gulp.src(paths.scripts)
   .pipe(eslint())
   .pipe(eslint.format()) 
-  .pipe(eslint.failAfterError())
 });
 
 gulp.task('babel', function() {
@@ -57,7 +55,7 @@ gulp.task('babel', function() {
 });
 
 gulp.task('clean:dist', function() {
-  return del.sync([paths.dist]).then(function(paths) {
+  return del([paths.dist]).then(function(paths) {
     console.log('Deleted files and folders:\n', paths.join('\n'));
   });
 });
@@ -73,20 +71,20 @@ gulp.task('scss', function(){
     }));
 });
 
-gulp.task('useref', function(){
+gulp.task('usemin', function() {
   return gulp.src(paths.html)
-    .pipe(useref())
-    .pipe(gulpIf('*.js', jstasks()))
-    .pipe(gulpIf('*.css', cssnano({
-      autoprefixer: {browsers: supported, add: true}
-    })))
-    
+    .pipe(usemin({
+      css: [cssnano({
+        autoprefixer: {browsers: supported, add: true}
+      })],
+      js: [jstasks()]
+    }))
     .pipe(gulp.dest(paths.dist))
 });
 
 gulp.task('build', function (callback) {
   runSequence('clean:dist', 
-    ['scss', 'useref'],
+    ['scss', 'usemin'],
     callback
   )
 })
@@ -94,7 +92,7 @@ gulp.task('build', function (callback) {
 gulp.task('serve', ['scss'], function() {
     browserSync.init({
     server: {
-      baseDir: paths.baseDir
+      baseDir: paths.src
     },
   });
 
